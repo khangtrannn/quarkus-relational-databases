@@ -1,4 +1,4 @@
-package org.khang.quarkus.panache;
+package org.khang.quarkus.panache.model;
 
 import java.time.Instant;
 

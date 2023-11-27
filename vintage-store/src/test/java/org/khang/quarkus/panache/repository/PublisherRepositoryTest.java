@@ -2,12 +2,14 @@ package org.khang.quarkus.panache.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.khang.quarkus.panache.model.Publisher;
 
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.persistence.EntityNotFoundException;
 
 @QuarkusTest
 public class PublisherRepositoryTest {
@@ -26,7 +28,9 @@ public class PublisherRepositoryTest {
     assertEquals(count + 1, Publisher.count());
 
     publisher = Publisher.findById(publisher.id);
+    publisher = Publisher.findByName(publisher.name).orElseThrow(EntityNotFoundException::new);
     assertEquals("name", publisher.name);
+    assertTrue(Publisher.findContainName("name").size() >= 1);
 
     Publisher.deleteById(publisher.id);
     assertEquals(count, Publisher.count());

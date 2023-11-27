@@ -2,6 +2,7 @@ package org.khang.quarkus.panache.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.khang.quarkus.jpa.Customer;
@@ -18,6 +19,7 @@ public class CustomerRepositoryTest {
   @Test
   @TestTransaction
   public void shouldCreateAndFindACustomer() {
+    assertTrue(repository.listAllDans().size() <= repository.listAll().size());
     Customer customer = new Customer("first name", "last name", "email");
 
     repository.persist(customer);
